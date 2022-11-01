@@ -6,7 +6,6 @@
 - React.js 
 - Firebase Authentication
 - Firestore Database
-- Firebase Cloud Functions
 
 ## Project overview
 
