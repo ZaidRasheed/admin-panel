@@ -5,7 +5,7 @@ export default function PublicRoutes() {
 
     const { currentUser } = UserAuth()
     return (
-        currentUser === null ? <Outlet /> : <Navigate to='/admin_dashboard' />
+        currentUser === null ? <Outlet /> : <Navigate to='/admin_panel' />
     )
 }
 

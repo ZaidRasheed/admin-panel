@@ -29,7 +29,7 @@ export default function Login() {
 
         try {
             await logIn(emailRef.current.value.trim(), passwordRef.current.value.trim());
-            navigate('/admin_dashboard')
+            navigate('/admin_panel')
         }
         catch (e) {
             switch (e.code) {
