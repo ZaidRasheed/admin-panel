@@ -23,5 +23,9 @@
 }
   ```
 - All operations by admins are done through an express api which is hosted with firebase cloud functions find the code [here](https://github.com/ZaidRasheed/admin_panel_functions).
+
+## Demo account credentials:
+- Email: demoadmin@adminpanel.com
+- Password: demoadmin@adminpanel.com
 ---
 ## You can view the project live [here](https://zaidrasheed.github.io/admin_panel/)
