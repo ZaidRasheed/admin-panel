@@ -29,9 +29,7 @@ export const AuthContextProvider = ({ children }) => {
     const [loading, setLoading] = useState(true)
 
     const logIn = (email, password) => {
-        if (email === import.meta.env.VITE_ADMIN_EMAIL)
-            return signInWithEmailAndPassword(auth, email, password);
-        return false;
+        return signInWithEmailAndPassword(auth, email, password);
     }
 
     const logOut = () => {
