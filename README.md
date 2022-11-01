@@ -23,7 +23,7 @@
   gender: string
 }
   ```
-- All operations by admins are done through an express api which is hosted with firebase cloud functions find the code [here](https://github.com/ZaidRasheed/admin_panel_functions).
+- All operations by admins are done through an express api which is hosted with firebase cloud functions find the code [here](https://github.com/ZaidRasheed/backend-admin-panel).
 
 ## Demo account credentials:
 - Email: demoadmin@adminpanel.com
