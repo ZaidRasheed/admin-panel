@@ -1,8 +1,9 @@
 import { UserAuth } from "../context/AuthContext"
 import { Button } from 'react-bootstrap'
-
+import { useNavigate } from "react-router-dom"
 export default function Profile(props) {
     const { logOut } = UserAuth()
+    const navigate = useNavigate()
     return (
         <div style={{ margin: "20px 0 0 50px", position: 'relative', width: '90vw', maxWidth: '1300px' }}>
             <p className="display-1">Profile</p>
@@ -12,7 +13,10 @@ export default function Profile(props) {
                 style={{ position: 'absolute', top: "20px", right: "20px", borderWidth: '2px' }}
                 variant='outline-dark'
                 size="lg"
-                onClick={logOut}
+                onClick={() => {
+                    logOut()
+                    navigate('/')
+                }}
             >Logout</Button>
         </div>
     )
