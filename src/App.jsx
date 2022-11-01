@@ -18,7 +18,7 @@ function App() {
           <Route element={<Login />} path="/" exact />
         </Route>
         <Route
-          path='/panel'
+          path='/admin_panel'
           element={
             <PrivateRoutes>
               <Admin />
