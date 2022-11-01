@@ -1,12 +1,15 @@
 {
-  "name": "admin-panel-for-grades_portal",
+  "homepage": "https://zaidrasheed.github.io/admin_panel",
+  "name": "admin_panel",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -14,6 +17,7 @@
     "@mui/material": "^5.10.11",
     "cdbreact": "^1.5.3",
     "firebase": "^9.12.1",
+    "gh-pages": "^4.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-bootstrap-icons": "^1.9.1",
