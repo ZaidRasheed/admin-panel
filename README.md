@@ -1,4 +1,6 @@
-## Admin Panel for the grades portal project
+# Admin Panel for the grades portal project
+
+## Checkout the grades portal project [here](https://github.com/ZaidRasheed/grades_portal)
 
 ## Tech Stack
 - React.js 
