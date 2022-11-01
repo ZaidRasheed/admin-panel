@@ -28,13 +28,8 @@ export default function Login() {
         }
 
         try {
-            const res = await logIn(emailRef.current.value.trim(), passwordRef.current.value.trim());
-            if (!res) {
-                setLoading(false);
-                return setError('Invalid Credentials');
-            }
-            else
-                navigate('/admin_dashboard')
+            await logIn(emailRef.current.value.trim(), passwordRef.current.value.trim());
+            navigate('/admin_dashboard')
         }
         catch (e) {
             switch (e.code) {
