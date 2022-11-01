@@ -1,6 +1,6 @@
 # Admin Panel for the grades portal project
 
-### Checkout the grades portal project [here](https://github.com/ZaidRasheed/grades_portal)
+### Checkout the grades portal project [here](https://github.com/ZaidRasheed/grades-portal)
 
 ## Tech Stack
 - React.js 
@@ -29,4 +29,4 @@
 - Email: demoadmin@adminpanel.com
 - Password: demoadmin@adminpanel.com
 ---
-## View project [live?](https://zaidrasheed.github.io/admin_panel/)
+## View project [live?](https://zaidrasheed.github.io/admin-panel/)
