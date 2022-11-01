@@ -18,14 +18,14 @@ function App() {
           <Route element={<Login />} path="/" exact />
         </Route>
         <Route
-          path='/admin_panel'
+          path='/admin-panel'
           element={
             <PrivateRoutes>
               <Admin />
             </PrivateRoutes>
           }
         />
-        <Route element={<ResetPassword />} path="/reset_password" exact />
+        <Route element={<ResetPassword />} path="/reset-password" exact />
         <Route path="*" element={<Error />} />
       </Routes>
     </AuthContextProvider>

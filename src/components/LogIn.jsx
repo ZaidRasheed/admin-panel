@@ -29,7 +29,7 @@ export default function Login() {
 
         try {
             await logIn(emailRef.current.value.trim(), passwordRef.current.value.trim());
-            navigate('/admin_panel')
+            navigate('/admin-panel')
         }
         catch (e) {
             switch (e.code) {
@@ -95,7 +95,7 @@ export default function Login() {
                     </Card.Body>
                 </Card>
                 <div className="w-100 text-center mt-2">
-                    Forgot password? <Link to='/reset_password'>Reset</Link>
+                    Forgot password? <Link to='/reset-password'>Reset</Link>
                 </div>
             </div>
         </Container>
