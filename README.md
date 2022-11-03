@@ -10,9 +10,10 @@
 ## Project overview
 
 - #### Admins 
-1. Admins can create their teachers accounts and also delete them.
+1. Admins can create teacher accounts and also delete them.
 2. Admins view teachers data and update some of it.
 3. Admins can also enabled and disable teachers accounts to restrict their access. 
+4. Admins can update their password or request an email link if they forgot the password.
 ## Description and Approach 
 - Admins are created in the admins database and structured as follow: 
 ```
