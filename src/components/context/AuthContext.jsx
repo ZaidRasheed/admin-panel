@@ -40,14 +40,6 @@ export const AuthContextProvider = ({ children }) => {
         return sendPasswordResetEmail(auth, email);
     }
 
-    const resetPassword = (password) => {
-        if (currentUser != null)
-            return updatePassword(currentUser, password)
-        return new Promise((resolve, reject) => {
-            reject(false)
-        })
-    }
-
     const createCredential = (email, password) => {
         const credential = EmailAuthProvider.credential(
             email,
@@ -56,8 +48,26 @@ export const AuthContextProvider = ({ children }) => {
         return credential;
     }
 
-    const reAuth = (currentUser, credential) => {
-        return reauthenticateWithCredential(currentUser, credential);
+    const resetPassword = async (oldPassword, newPassword) => {
+        try {
+            const credential = createCredential(currentUser.email, oldPassword);
+            await reauthenticateWithCredential(currentUser, credential);
+            await updatePassword(currentUser, newPassword)
+            return { status: 'success', message: 'Password updated successfully.' }
+        }
+        catch (error) {
+            switch (error.code) {
+                case 'auth/weak-password': {
+                    return { status: 'error', message: 'Weak Password.' }
+                }
+                case 'auth/wrong-password': {
+                    return { status: 'error', message: 'Wrong password please provide your current password, or reset your password through email.' }
+                }
+                default: {
+                    return { status: 'error', message: 'Failed to update password.' }
+                }
+            }
+        }
     }
 
     useEffect(() => {
@@ -269,8 +279,6 @@ export const AuthContextProvider = ({ children }) => {
         sendResetPasswordLink,
         resetPassword,
         logOut,
-        createCredential,
-        reAuth,
 
         getAdminData,
         getAllTeachers,
