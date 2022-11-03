@@ -30,4 +30,4 @@
 - Email: demoadmin@adminpanel.com
 - Password: demoadmin@adminpanel.com
 ---
-## View project [live?](https://zaidrasheed.github.io/admin-panel/)
+## Check the project live [here](https://zaidrasheed.github.io/admin-panel/)
