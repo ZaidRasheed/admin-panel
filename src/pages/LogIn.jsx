@@ -1,57 +1,15 @@
-import { useRef, useState } from 'react'
-import { Container, Form, Button, Card, Alert, InputGroup } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
-import { UserAuth } from '../components/context/AuthContext.jsx'
+import useLogin from '../hooks/useLogin'
+import { Container, Form, Button, Card, InputGroup } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+
 
 export default function Login() {
 
-    const { logIn } = UserAuth();
-
-    const navigate = useNavigate();
-
-    const emailRef = useRef()
-    const passwordRef = useRef()
-
-    const [error, setError] = useState('')
-    const [loading, setLoading] = useState(false);
-
-
-    async function handleSubmit(event) {
-        event.preventDefault();
-
-        setError('')
-        setLoading(true);
-
-        if (passwordRef.current.value.length < 4) {
-            setLoading(false);
-            return setError('Invalid Password');
-        }
-
-        try {
-            await logIn(emailRef.current.value.trim(), passwordRef.current.value.trim());
-            navigate('/admin-panel')
-        }
-        catch (e) {
-            switch (e.code) {
-                case 'auth/user-not-found': {
-                    setError("A username with this email doesn't exist,\n Sign up instead?")
-                    break;
-                }
-                case 'auth/wrong-password': {
-                    setError('Wrong password please try again')
-                    break;
-                }
-                case 'auth/too-many-requests': {
-                    setError('Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.')
-                    break;
-                }
-                default: {
-                    setError('Failed to login')
-                }
-            }
-            setLoading(false);
-        }
-    }
+    const { emailRef,
+        passwordRef,
+        loading,
+        handLogin,
+        ErrorAlert } = useLogin()
 
     return (
         <Container
@@ -62,8 +20,8 @@ export default function Login() {
                 <Card className='p-2'>
                     <Card.Body>
                         <h2 className='text-center mb-4'>Admin Login</h2>
-                        {error && <Alert variant='danger' onClose={() => setError('')} dismissible>{error}</Alert>}
-                        <Form onSubmit={handleSubmit}>
+                        {ErrorAlert}
+                        <Form onSubmit={handLogin}>
                             <Form.Group className='mb-3'>
                                 <Form.Label>Email</Form.Label>
                                 <InputGroup>

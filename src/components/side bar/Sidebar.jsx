@@ -1,13 +1,17 @@
 import {
   CDBSidebar,
   CDBSidebarContent,
-  CDBSidebarFooter,
   CDBSidebarHeader,
   CDBSidebarMenu,
   CDBSidebarMenuItem
-} from 'cdbreact';
+} from 'cdbreact'
 
-const Sidebar = (props) => {
+import { useLocation, useNavigate } from 'react-router-dom'
+const Sidebar = () => {
+
+  const navigate = useNavigate()
+  const url = useLocation()
+  const page = url.pathname.split(('/admin-panel'))[1]
 
   return (
     <div
@@ -19,29 +23,25 @@ const Sidebar = (props) => {
         </CDBSidebarHeader>
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            {/* <CDBSidebarMenuItem
-              active={props.active === 'Dashboard' ? true : false}
-              onClick={() => { props.setActive('Dashboard') }}
-              icon="columns">Dashboard</CDBSidebarMenuItem> */}
             <CDBSidebarMenuItem
-              active={props.active === 'Teachers' ? true : false}
-              onClick={() => { props.setActive('Teachers') }}
+              active={page === '' || page === '/'}
+              onClick={() => navigate('./')}
               icon="table">Teachers</CDBSidebarMenuItem>
             <CDBSidebarMenuItem
-              active={props.active === 'Add Teacher' ? true : false}
-              onClick={() => { props.setActive('Add Teacher') }}
+              active={page === '/add-teacher'}
+              onClick={() => navigate('./add-teacher')}
               icon="plus">
               Add Teacher
             </CDBSidebarMenuItem>
             <CDBSidebarMenuItem
-              active={props.active === 'Profile' ? true : false}
-              onClick={() => { props.setActive('Profile') }}
+              active={page === '/profile'}
+              onClick={() => navigate('./profile')}
               icon="user">Profile</CDBSidebarMenuItem>
           </CDBSidebarMenu>
         </CDBSidebarContent>
       </CDBSidebar>
     </div>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar

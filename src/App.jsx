@@ -1,33 +1,35 @@
-import { AuthContextProvider } from './components/context/AuthContext.jsx'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { AuthContextProvider } from './context/app context/AuthContext.jsx'
 import { Routes, Route } from 'react-router-dom'
 
-import Login from './components/LogIn.jsx'
-import Admin from './components/Admin.jsx'
-import ResetPassword from './components/ResetPassword.jsx'
-import Error from './components/Error.jsx'
+import { lazy, Suspense } from 'react'
+import LoadingSpinner from './components/UI/LoadingSpinner'
 
-import PrivateRoutes from './components/PrivateRoutes.jsx'
-import PublicRoutes from './components/PublicRoutes.jsx'
+const Login = lazy(() => import('./pages/LogIn.jsx'))
+const ResetPassword = lazy(() => import('./pages/ResetPassword.jsx'))
+const Error = lazy(() => import('./pages/Error.jsx'))
+
+const PrivateRoutes = lazy(() => import('./routes/PrivateRoutes.jsx'))
+const PublicRoutes = lazy(() => import('./routes/PublicRoutes.jsx'))
+
+const Admin = lazy(() => import('./components/Admin.jsx'))
 
 function App() {
 
   return (
     <AuthContextProvider>
-      <Routes>
-        <Route element={<PublicRoutes />}>
-          <Route element={<Login />} path="/" exact />
-        </Route>
-        <Route
-          path='/admin-panel'
-          element={
-            <PrivateRoutes>
-              <Admin />
-            </PrivateRoutes>
-          }
-        />
-        <Route element={<ResetPassword />} path="/reset-password" exact />
-        <Route path="*" element={<Error />} />
-      </Routes>
+      <Suspense fallback={<LoadingSpinner />}>
+        <Routes>
+          <Route element={<PublicRoutes />}>
+            <Route element={<Login />} path="/" />
+          </Route>
+          <Route element={<PrivateRoutes />} >
+            <Route path='/admin-panel/*' element={<Admin />} />
+          </Route>
+          <Route element={<ResetPassword />} path="/reset-password" />
+          <Route path="*" element={<Error />} />
+        </Routes>
+      </Suspense>
     </AuthContextProvider>
   )
 }

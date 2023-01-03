@@ -1,10 +1,11 @@
 import { Form, Button, Alert, Modal } from 'react-bootstrap'
 import { useState } from 'react'
-import { UserAuth } from '../../context/AuthContext.jsx'
+import { UserAuth } from '../../../context/app context/AuthContext.jsx'
+
 export default function EditTeacherModal(props) {
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false)
 
     const [firstName, setFirstName] = useState(props.teacher.firstName)
     const [lastName, setLastName] = useState(props.teacher.lastName)
@@ -19,7 +20,7 @@ export default function EditTeacherModal(props) {
         setError('')
         setSuccess('')
         setLoading(true)
-        if (props.teacher.firstName.toLowerCase() === firstName.toLowerCase() && props.teacher.lastName .toLowerCase() === lastName.toLowerCase()) {
+        if (props.teacher.firstName.toLowerCase() === firstName.toLowerCase() && props.teacher.lastName.toLowerCase() === lastName.toLowerCase()) {
             setLoading(false)
             return setError('Please provide a new name.')
         }

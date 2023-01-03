@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-import { UserAuth } from '../components/context/AuthContext.jsx'
-import { Navigate } from 'react-router-dom'
+import { UserAuth } from '../context/app context/AuthContext.jsx'
+import { Navigate, Outlet } from 'react-router-dom'
 
-export default function PrivateRoutes({ children }) {
+export default function PrivateRoutes() {
     const { currentUser, getAdminData, logOut } = UserAuth()
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false)
     const [isAdmin, setIsAdmin] = useState(false)
     useEffect(() => {
         if (currentUser?.uid)
@@ -21,16 +21,16 @@ export default function PrivateRoutes({ children }) {
                     logOut()
                 })
                 .finally(() => {
-                    setLoading(true);
+                    setLoading(true)
                 })
         else {
-            setLoading(true);
+            setLoading(true)
         }
-    }, [currentUser?.uid]);
+    }, [currentUser?.uid])
 
     if (loading) {
         if (isAdmin)
-            return children
+            return <Outlet />
         return <Navigate to='/' />
     }
 }

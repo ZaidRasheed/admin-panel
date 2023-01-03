@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom"
-import { UserAuth } from "./context/AuthContext.jsx";
+import { UserAuth } from "../context/app context/AuthContext.jsx"
 
 export default function PublicRoutes() {
 

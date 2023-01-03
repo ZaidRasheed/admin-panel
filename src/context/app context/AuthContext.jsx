@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react"
 import {
     signInWithEmailAndPassword,
     onAuthStateChanged,
@@ -7,37 +7,37 @@ import {
     updatePassword,
     EmailAuthProvider,
     reauthenticateWithCredential,
-} from "firebase/auth";
+} from "firebase/auth"
 
 import {
     collection, doc,
     getDocs, getDoc,
 } from 'firebase/firestore'
 
-import { auth, db } from "./firebase.jsx";
+import { auth, db } from "./firebase.jsx"
 
 const BASE_URL = import.meta.env.VITE_API_URL
 
-const UserContext = createContext();
+const UserContext = createContext()
 
 export const UserAuth = () => {
-    return useContext(UserContext);
+    return useContext(UserContext)
 }
 
 export const AuthContextProvider = ({ children }) => {
-    const [currentUser, setCurrentUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
 
     const logIn = (email, password) => {
-        return signInWithEmailAndPassword(auth, email, password);
+        return signInWithEmailAndPassword(auth, email, password)
     }
 
     const logOut = () => {
-        return signOut(auth);
+        return signOut(auth)
     }
 
     const sendResetPasswordLink = (email) => {
-        return sendPasswordResetEmail(auth, email);
+        return sendPasswordResetEmail(auth, email)
     }
 
     const createCredential = (email, password) => {
@@ -45,13 +45,13 @@ export const AuthContextProvider = ({ children }) => {
             email,
             password
         )
-        return credential;
+        return credential
     }
 
     const resetPassword = async (oldPassword, newPassword) => {
         try {
-            const credential = createCredential(currentUser.email, oldPassword);
-            await reauthenticateWithCredential(currentUser, credential);
+            const credential = createCredential(currentUser.email, oldPassword)
+            await reauthenticateWithCredential(currentUser, credential)
             await updatePassword(currentUser, newPassword)
             return { status: 'success', message: 'Password updated successfully.' }
         }
@@ -73,17 +73,17 @@ export const AuthContextProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, user => {
             if (user) {
-                setCurrentUser(user);
+                setCurrentUser(user)
             }
             else {
                 setCurrentUser(null)
             }
-            setLoading(false);
-        });
+            setLoading(false)
+        })
 
         return () => {
-            unsubscribe();
-        };
+            unsubscribe()
+        }
     }, [])
 
 
@@ -94,7 +94,7 @@ export const AuthContextProvider = ({ children }) => {
             getDoc(adminDoc)
                 .then(res => {
                     if (res.exists())
-                        return resolve(res.data());
+                        return resolve(res.data())
                     return reject({ error: "Admin Doesn't exist" })
 
                 })
@@ -105,7 +105,7 @@ export const AuthContextProvider = ({ children }) => {
     }
 
     function getAllTeachers() {
-        const teachersCol = collection(db, 'teachers');
+        const teachersCol = collection(db, 'teachers')
         return new Promise((resolve, reject) => {
             getDocs(teachersCol)
                 .then((snapshot) => {
@@ -125,7 +125,7 @@ export const AuthContextProvider = ({ children }) => {
         if (teacher.firstName.length < 2 || teacher.lastName < 2) {
             return { status: 'error', message: 'Please provide a valid first and last name.' }
         }
-        const regName = /^[a-zA-Z ]+$/;
+        const regName = /^[a-zA-Z ]+$/
 
         if (!regName.test(teacher.firstName.trim()) || !regName.test(teacher.lastName.trim())) {
             return { status: 'error', message: 'Name should only contain alphabets.' }
@@ -154,9 +154,10 @@ export const AuthContextProvider = ({ children }) => {
             password: teacher.password,
             disabled: teacher.disabled
         }
-
+        console.log(validatedTeacher)
         try {
             const token = await currentUser.getIdToken(true)
+            console.log('first')
             try {
                 const response = await fetch(BASE_URL + '/add_teacher', {
                     method: 'POST',
@@ -167,6 +168,7 @@ export const AuthContextProvider = ({ children }) => {
                         token: token
                     }
                 })
+                console.log('second')
 
                 return response.json()
             }
@@ -205,7 +207,7 @@ export const AuthContextProvider = ({ children }) => {
     }
 
     async function editTeachersName(teacherId, firstName, lastName) {
-        const regName = /^[a-zA-Z ]+$/;
+        const regName = /^[a-zA-Z ]+$/
 
         if (!regName.test(firstName.trim()) || !regName.test(lastName.trim())) {
             return { status: 'error', message: 'Name should only contain alphabets.' }
